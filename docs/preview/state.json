@@ -1,0 +1,16 @@
+{
+  "schema": 1,
+  "environment": "TEST_ONLY",
+  "revision": 0,
+  "serverDatabase": {
+    "sqlCipherEnabled": false
+  },
+  "licenses": [
+    {
+      "id": "DEMO-001",
+      "status": "active",
+      "expiresAt": "2027-01-01",
+      "generation": 1
+    }
+  ]
+}
