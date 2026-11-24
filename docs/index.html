@@ -15,16 +15,16 @@
 <main>
 <div class="intro"><h1>Impostazioni LRL</h1><p>Licenze, database e aggiornamenti.</p></div>
 <section aria-labelledby="licenseTitle">
-<div class="heading"><h2 id="licenseTitle">Licenze</h2><a class="button primary" href="https://github.com/karoku9/LabRepairLogger/actions/workflows/lrl-license-prepare.yml" target="_blank" rel="noopener noreferrer">Prepara licenza ↗</a></div>
+<div class="heading"><h2 id="licenseTitle">Licenze</h2><a class="button primary" href="https://github.com/karoku9/LabRepairLogger/actions/workflows/lrl-license-manage.yml" target="_blank" rel="noopener noreferrer">Gestisci licenze su GitHub ↗</a></div>
 <div class="panel">
-<p class="muted"><strong>Firma reale non ancora attiva.</strong> Il controllo privato prepara il documento di emissione, rinnovo o revoca. Non concede accesso finché non viene firmato e pubblicato dalle due autorità.</p>
+<p class="muted"><strong>Automazione licenze predisposta; attivazione non ancora completata.</strong> Il workflow privato include emissione, rinnovo, revoca e ripubblicazione. La modalità self-test è disponibile; l’operatività reale richiede le autorità di firma e il permesso di pubblicazione configurati una volta. Non inserire chiavi o token in questa pagina.</p>
 <div class="line"><div><strong>Licenza da gestire</strong><small>Seleziona un documento JSON locale da consultare.</small></div><label class="file-btn" for="licenseFiles">Apri file licenze</label><input type="file" id="licenseFiles" accept=".json,application/json" multiple class="visually-hidden"></div>
 <label for="licenseSelect" class="field-label">Licenze caricate</label>
 <select id="licenseSelect" disabled><option value="">Nessuna licenza caricata</option></select>
 <div id="licenseDetails" class="detail" hidden></div>
 
-<div class="buttons"><a class="button" href="https://github.com/karoku9/LabRepairLogger/actions/workflows/lrl-license-prepare.yml" target="_blank" rel="noopener noreferrer">Emissione / rinnovo / revoca ↗</a><a class="button" href="https://github.com/karoku9/LabRepairLogger/tree/kes/gh-33-portable-candidate-gate/tools/LicenseAdmin" target="_blank" rel="noopener noreferrer">Firma amministrativa ↗</a></div>
-<p class="muted" id="licenseMessage" role="status">I file restano sul PC. I dati visualizzati non sono verificati crittograficamente. La preparazione avviene tramite il workflow privato; non emette o revoca direttamente.</p>
+<div class="buttons"><a class="button" href="https://github.com/karoku9/LabRepairLogger/actions/workflows/lrl-license-manage.yml" target="_blank" rel="noopener noreferrer">Nuova / rinnova / revoca ↗</a><a class="button" href="https://github.com/karoku9/LabRepairLogger/tree/kes/gh-33-portable-candidate-gate/tools/LicenseAdmin" target="_blank" rel="noopener noreferrer">Firma amministrativa ↗</a></div>
+<p class="muted" id="licenseMessage" role="status">I file restano sul PC. I dati visualizzati non sono verificati crittograficamente. La gestione usa il workflow privato. I file consultati non sono automaticamente attivati.</p>
 </div></section>
 <section aria-labelledby="dbTitle">
 <div class="heading"><h2 id="dbTitle">Database server</h2><a href="https://github.com/karoku9/LabRepairLogger/blob/kes/gh-33-portable-candidate-gate/config/server-storage.json" target="_blank" rel="noopener noreferrer">Configurazione attuale ↗</a></div>
