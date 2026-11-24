@@ -76,24 +76,6 @@
     licenseRequest("Emissione",value,byId("newDuration").value);
     dialog.close();
   });
-  const mode = () => document.querySelector('input[name="dbMode"]:checked')?.value;
-  document.querySelectorAll('input[name="dbMode"]').forEach(radio => radio.addEventListener("change", () => {
-    byId("saveMode").disabled = false; byId("editMode").disabled = false;
-    byId("dbMessage").textContent = "Modalità desiderata: " + (mode() === "true" ? "SQLCipher" : "SQLite") + ". Non ancora applicata.";
-  }));
-  byId("saveMode").addEventListener("click", () => {
-    const selected = mode();
-    if (!["true","false"].includes(selected)) return;
-    issue("[Database] Imposta cifratura server: " + (selected === "true" ? "SQLCipher" : "SQLite"),
-      "Valore desiderato in config/server-storage.json:\nserverDatabase.sqlCipherEnabled = " + selected +
-      "\n\nRichiesta di modifica della configurazione, non deploy live. Verificare backup, compatibilità e migrazione dell'eventuale archivio esistente prima dell'attivazione.");
-  });
-  byId("editMode").addEventListener("click", () => {
-    const selected = mode();
-    if (!["true","false"].includes(selected)) return;
-    byId("dbMessage").textContent = "Nell'editor imposta sqlCipherEnabled a " + selected + ", poi salva la modifica da GitHub. Il server non cambia automaticamente.";
-    window.open(repo + "/edit/" + branch + "/config/server-storage.json", "_blank","noopener,noreferrer");
-  });
   async function refresh() {
     const btn = byId("refreshRelease");
     btn.disabled = true;
