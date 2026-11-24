@@ -1,9 +1,9 @@
 {
   "schema": 1,
   "environment": "TEST_ONLY",
-  "revision": 1,
+  "revision": 2,
   "serverDatabase": {
-    "sqlCipherEnabled": true
+    "sqlCipherEnabled": false
   },
   "licenses": [
     {
@@ -13,5 +13,5 @@
       "generation": 1
     }
   ],
-  "issuedAtUtc": "2026-11-24T11:27:46Z"
+  "issuedAtUtc": "2026-11-24T11:30:11Z"
 }
