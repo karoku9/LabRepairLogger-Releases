@@ -4,47 +4,17 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'none'; object-src 'none'; script-src 'self'; style-src 'self'; connect-src https://api.github.com https://raw.githubusercontent.com; form-action 'none'; upgrade-insecure-requests">
-<title>LRL Control Center</title>
-<link rel="stylesheet" href="./control-v2.css">
-<script src="./control-v3.js" defer></script>
-<script src="./preview-live.js" defer></script>
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'none'; object-src 'none'; script-src 'self'; style-src 'self'; connect-src https://api.github.com; form-action 'none'; upgrade-insecure-requests">
+<title>LRL | Control Center</title>
+<link rel="stylesheet" href="./control-v4.css">
+<script src="./control-v4.js" defer></script>
 </head>
-<body>
-<header><div class="brand"><span class="logo">LR</span><div><strong>Control Center</strong><small>LabRepairLogger</small></div></div><a href="https://github.com/karoku9/LabRepairLogger" target="_blank" rel="noopener noreferrer">GitHub privato ↗</a></header>
-<main>
-<div class="intro"><h1>Impostazioni LRL</h1><p>Licenze, database e aggiornamenti.</p></div>
-<section aria-labelledby="licenseTitle">
-<div class="heading"><h2 id="licenseTitle">Licenze</h2><a class="button primary" href="https://github.com/karoku9/LabRepairLogger/actions/workflows/lrl-license-manage.yml" target="_blank" rel="noopener noreferrer">Gestisci licenze su GitHub ↗</a></div>
-<div class="panel">
-<p class="muted"><strong>Automazione licenze predisposta; attivazione non ancora completata.</strong> Il workflow privato include emissione, rinnovo, revoca e ripubblicazione. La modalità self-test è disponibile; l’operatività reale richiede le autorità di firma e il permesso di pubblicazione configurati una volta. Non inserire chiavi o token in questa pagina.</p>
-<div class="line"><div><strong>Licenza da gestire</strong><small>Seleziona un documento JSON locale da consultare.</small></div><label class="file-btn" for="licenseFiles">Apri file licenze</label><input type="file" id="licenseFiles" accept=".json,application/json" multiple class="visually-hidden"></div>
-<label for="licenseSelect" class="field-label">Licenze caricate</label>
-<select id="licenseSelect" disabled><option value="">Nessuna licenza caricata</option></select>
-<div id="licenseDetails" class="detail" hidden></div>
-
-<div class="buttons"><a class="button" href="https://github.com/karoku9/LabRepairLogger/actions/workflows/lrl-license-manage.yml" target="_blank" rel="noopener noreferrer">Nuova / rinnova / revoca ↗</a><a class="button" href="https://github.com/karoku9/LabRepairLogger/tree/kes/gh-33-portable-candidate-gate/tools/LicenseAdmin" target="_blank" rel="noopener noreferrer">Firma amministrativa ↗</a></div>
-<p class="muted" id="licenseMessage" role="status">I file restano sul PC. I dati visualizzati non sono verificati crittograficamente. La gestione usa il workflow privato. I file consultati non sono automaticamente attivati.</p>
-</div></section>
-<section aria-labelledby="dbTitle">
-<div class="heading"><h2 id="dbTitle">Database server</h2><a href="https://github.com/karoku9/LabRepairLogger/blob/kes/gh-33-portable-candidate-gate/config/server-storage.json" target="_blank" rel="noopener noreferrer">Configurazione attuale ↗</a></div>
-<div class="panel">
-<div class="line"><div><strong>Cifratura desiderata</strong><small>Seleziona la modalità per il server. Il client locale resta cifrato.</small></div></div>
-<p class="muted">Apri il controllo protetto, premi Run workflow, scegli SQLite o SQLCipher e conferma. Il workflow salva il valore nel repository privato; non converte né riavvia il server.</p>
-<div class="buttons"><a class="button primary" href="https://github.com/karoku9/LabRepairLogger/actions/workflows/lrl-server-storage-policy.yml" target="_blank" rel="noopener noreferrer">Imposta modalità su GitHub ↗</a><a class="button" href="https://github.com/karoku9/LabRepairLogger/blob/kes/gh-33-portable-candidate-gate/config/server-storage.json" target="_blank" rel="noopener noreferrer">Leggi valore salvato ↗</a></div>
-<p class="muted" id="dbMessage" role="status">Lo stato effettivo del server non è verificabile da questa pagina.</p>
-<p class="muted">La conversione di un DB esistente richiede backup e migrazione verificata. Nessun cambio live automatico.</p>
-</div></section>
-<section aria-labelledby="releaseTitle">
-<div class="heading"><h2 id="releaseTitle">Aggiornamenti</h2><button id="refreshRelease">Aggiorna stato</button></div>
-<div class="panel release"><div><small>Ultima Nightly pubblicata</small><strong id="releaseVersion">Controllo...</strong><small id="releaseDate">GitHub</small></div><a class="button" id="releaseLink" href="https://github.com/karoku9/LabRepairLogger-Releases/releases" target="_blank" rel="noopener noreferrer">Release ↗</a></div>
-</section>
-<section aria-labelledby="previewTitle">
-<div class="heading"><h2 id="previewTitle">Collaudo live (solo DEMO)</h2><button id="previewRefresh">Aggiorna</button></div>
-<div class="panel"><div class="detail" id="previewStatus" role="status">Caricamento...</div>
-<div class="buttons"><a class="button primary" href="https://github.com/karoku9/LabRepairLogger-Releases/actions/workflows/control-preview.yml" target="_blank" rel="noopener noreferrer">Cambia stato test su GitHub ↗</a></div>
-<p class="muted">Scegli Run workflow. La modifica viene salvata e firmata. Nessuna licenza o database reale viene modificato.</p></div></section>
-<footer>Portale pubblico · Le modifiche richiedono accesso al repository privato. Nessun token o chiave memorizzati.</footer>
-</main>
-
-</body></html>
+<body><header><div class="brand"><span class="logo">LR</span><div><strong>Control Center</strong><small>LabRepairLogger · Beta</small></div></div><span class="muted">Monitoraggio pubblico</span></header>
+<main><div class="heading"><div><h1>Gestione LRL</h1><p class="muted">Licenze, database e aggiornamenti.</p></div><button id="refresh">Aggiorna</button></div>
+<section class="panel"><div class="heading"><h2>Licenze <span id="count" class="muted"></span></h2><a class="button primary" href="https://github.com/karoku9/LabRepairLogger/actions/workflows/lrl-license-manage.yml" target="_blank" rel="noopener">Amministrazione GitHub ↗</a></div>
+<div class="table"><table><thead><tr><th>Abilitata</th><th>ID licenza</th><th>Stato firmato</th><th>Scadenza</th><th>Dispositivi</th><th>Generazione</th></tr></thead><tbody id="rows"><tr><td colspan="6">Caricamento...</td></tr></tbody></table></div>
+<p id="licenseStatus" class="muted" role="status"></p>
+<div class="notice"><strong>Pannello amministrativo interattivo</strong><p>Apri <code>Download\LRL-Control-Center\Apri-Control-Center.cmd</code> sui PC dove è stato installato. Il pannello locale riutilizza la tua sessione GitHub CLI e consente di creare, sospendere, riabilitare, rinnovare e revocare licenze. Questa pagina pubblica è in sola lettura; non contiene credenziali.</p><a href="https://github.com/karoku9/LabRepairLogger/blob/kes/gh-33-portable-candidate-gate/tools/ControlCenter/admin-dashboard.cjs" target="_blank" rel="noopener">Sorgente del pannello privato ↗</a></div></section>
+<section class="panel"><div class="heading"><h2>Database server</h2><a class="button" href="https://github.com/karoku9/LabRepairLogger/actions/workflows/lrl-server-storage-policy.yml" target="_blank" rel="noopener">Configurazione protetta ↗</a></div><p class="muted">Lo stato desiderato della cifratura è disponibile nel pannello amministrativo autenticato. La scelta del formato non converte il database corrente.</p></section>
+<section class="panel"><div class="heading"><div><small class="muted">Ultima Nightly pubblicata</small><h2 id="version">Caricamento...</h2></div><a class="button" id="releaseLink" href="https://github.com/karoku9/LabRepairLogger-Releases/releases" target="_blank" rel="noopener">Release ↗</a></div></section>
+<footer>I documenti sono verificati con entrambe le chiavi pubbliche Beta. Nessuna credenziale nel sito. Sospensione reversibile dalla versione .10; revoca definitiva separata.</footer></main></body></html>
