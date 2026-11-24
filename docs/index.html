@@ -4,10 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'none'; object-src 'none'; script-src 'self'; style-src 'self'; connect-src https://api.github.com; form-action 'none'; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'none'; object-src 'none'; script-src 'self'; style-src 'self'; connect-src https://api.github.com https://raw.githubusercontent.com; form-action 'none'; upgrade-insecure-requests">
 <title>LRL Control Center</title>
 <link rel="stylesheet" href="./control-v2.css">
 <script src="./control-v2.js" defer></script>
+<script src="./preview-live.js" defer></script>
 </head>
 <body>
 <header><div class="brand"><span class="logo">LR</span><div><strong>Control Center</strong><small>LabRepairLogger</small></div></div><a href="https://github.com/karoku9/LabRepairLogger" target="_blank" rel="noopener noreferrer">GitHub privato ↗</a></header>
@@ -43,6 +44,11 @@
 <div class="heading"><h2 id="releaseTitle">Aggiornamenti</h2><button id="refreshRelease">Aggiorna stato</button></div>
 <div class="panel release"><div><small>Ultima Nightly pubblicata</small><strong id="releaseVersion">Controllo...</strong><small id="releaseDate">GitHub</small></div><a class="button" id="releaseLink" href="https://github.com/karoku9/LabRepairLogger-Releases/releases" target="_blank" rel="noopener noreferrer">Release ↗</a></div>
 </section>
+<section aria-labelledby="previewTitle">
+<div class="heading"><h2 id="previewTitle">Collaudo live (solo DEMO)</h2><button id="previewRefresh">Aggiorna</button></div>
+<div class="panel"><div class="detail" id="previewStatus" role="status">Caricamento...</div>
+<div class="buttons"><a class="button primary" href="https://github.com/karoku9/LabRepairLogger-Releases/actions/workflows/control-preview.yml" target="_blank" rel="noopener noreferrer">Cambia stato test su GitHub ↗</a></div>
+<p class="muted">Scegli Run workflow. La modifica viene salvata e firmata. Nessuna licenza o database reale viene modificato.</p></div></section>
 <footer>Portale pubblico · Le modifiche richiedono accesso al repository privato. Nessun token o chiave memorizzati.</footer>
 </main>
 <dialog id="newDialog"><form id="newForm"><div class="heading"><h2>Nuova licenza</h2><button type="button" id="closeDialog" aria-label="Chiudi">×</button></div><label for="newId" class="field-label">ID desiderato</label><input id="newId" required maxlength="128" pattern="[A-Za-z0-9_.-]{1,128}" placeholder="LRL-CLIENT-01"><label for="newDuration" class="field-label">Durata</label><select id="newDuration"><option value="30">30 giorni</option><option value="90">90 giorni</option><option value="365">1 anno</option></select><p class="muted">Crea una richiesta privata per emissione e autorizzazione dei dispositivi.</p><button type="submit" class="primary">Richiedi licenza ↗</button></form></dialog>
