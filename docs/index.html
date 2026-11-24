@@ -32,12 +32,9 @@
 <div class="heading"><h2 id="dbTitle">Database server</h2><a href="https://github.com/karoku9/LabRepairLogger/blob/kes/gh-33-portable-candidate-gate/config/server-storage.json" target="_blank" rel="noopener noreferrer">Configurazione attuale ↗</a></div>
 <div class="panel">
 <div class="line"><div><strong>Cifratura desiderata</strong><small>Seleziona la modalità per il server. Il client locale resta cifrato.</small></div></div>
-<fieldset class="choice"><legend class="visually-hidden">Modalità del database server</legend>
-<label><input type="radio" name="dbMode" value="false"><span><b>SQLite</b><small>Non cifrato</small></span></label>
-<label><input type="radio" name="dbMode" value="true"><span><b>SQLCipher</b><small>Cifrato</small></span></label>
-</fieldset>
-<div class="buttons"><button class="primary" id="saveMode" disabled>Richiedi modifica</button><button id="editMode" disabled>Apri editor GitHub ↗</button></div>
-<p class="muted" id="dbMessage" role="status">Nessuna modalità selezionata. Lo stato del server non è verificabile da questa pagina.</p>
+<p class="muted">Apri il controllo protetto, premi Run workflow, scegli SQLite o SQLCipher e conferma. Il workflow salva il valore nel repository privato; non converte né riavvia il server.</p>
+<div class="buttons"><a class="button primary" href="https://github.com/karoku9/LabRepairLogger/actions/workflows/lrl-server-storage-policy.yml" target="_blank" rel="noopener noreferrer">Imposta modalità su GitHub ↗</a><a class="button" href="https://github.com/karoku9/LabRepairLogger/blob/kes/gh-33-portable-candidate-gate/config/server-storage.json" target="_blank" rel="noopener noreferrer">Leggi valore salvato ↗</a></div>
+<p class="muted" id="dbMessage" role="status">Lo stato effettivo del server non è verificabile da questa pagina.</p>
 <p class="muted">La conversione di un DB esistente richiede backup e migrazione verificata. Nessun cambio live automatico.</p>
 </div></section>
 <section aria-labelledby="releaseTitle">
