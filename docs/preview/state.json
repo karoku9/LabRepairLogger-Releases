@@ -1,17 +1,17 @@
 {
   "schema": 1,
   "environment": "TEST_ONLY",
-  "revision": 2,
+  "revision": 3,
   "serverDatabase": {
     "sqlCipherEnabled": false
   },
   "licenses": [
     {
       "id": "DEMO-001",
-      "status": "active",
+      "status": "revoked",
       "expiresAt": "2027-01-01",
-      "generation": 1
+      "generation": 2
     }
   ],
-  "issuedAtUtc": "2026-11-24T11:30:11Z"
+  "issuedAtUtc": "2026-11-24T14:54:26Z"
 }
