@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "environment": "TEST_ONLY",
-  "revision": 3,
+  "revision": 4,
   "serverDatabase": {
     "sqlCipherEnabled": false
   },
@@ -13,5 +13,5 @@
       "generation": 2
     }
   ],
-  "issuedAtUtc": "2026-11-24T14:54:26Z"
+  "issuedAtUtc": "2026-11-24T14:55:09Z"
 }
