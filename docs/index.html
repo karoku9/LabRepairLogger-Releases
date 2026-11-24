@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="description" content="LRL Control Center: richieste amministrative e stato delle release firmate.">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'none'; object-src 'none'; img-src 'self' data:; script-src 'self'; style-src 'self'; connect-src https://api.github.com; form-action 'none'; upgrade-insecure-requests">
+  <title>LRL · Control Center</title>
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./app.js" defer></script>
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar" aria-label="Navigazione">
+      <div class="brand"><div class="brandmark">LR</div><div><strong>LabRepairLogger</strong><small>Control Center</small></div></div>
+      <p class="nav-section">PANORAMICA</p>
+      <nav>
+        <a href="#overview" class="navlink active">Dashboard</a>
+        <a href="#licenses" class="navlink">Licenze</a>
+        <a href="#database" class="navlink">Database</a>
+        <a href="#updates" class="navlink">Aggiornamenti</a>
+      </nav>
+      <div class="sidebar-bottom"><span class="dot"></span> Console amministrativa · anteprima
+        <p>Il pannello non memorizza token, database o chiavi di firma.</p>
+      </div>
+    </aside>
+    <main id="overview">
+      <header class="topbar">
+        <span class="breadcrumb">LABREPAIRLOGGER <span class="sep">/</span> CONTROL CENTER</span>
+        <a class="github-link" href="https://github.com/karoku9/LabRepairLogger" target="_blank" rel="noopener noreferrer">Sorgente privato ↗</a>
+      </header>
+      <div class="content">
+        <div class="hero">
+          <div>
+            <div class="eyebrow">AMMINISTRAZIONE</div>
+            <h1>Un unico posto per<br><em>gestire LRL.</em></h1>
+            <p>Licenze, criteri di cifratura e aggiornamenti. Le operazioni sensibili restano protette su GitHub: questa pagina non è un backend.</p>
+          </div>
+          <div class="hero-icon" aria-hidden="true"><div class="brandmark big">LR</div></div>
+        </div>
+        <div class="statusbar">
+          <div><span class="dot"></span><strong>Release pubbliche firmate</strong><small id="releaseStatus">Controllo disponibilità...</small></div>
+          <div><span class="pill neutral">Sorgente privato</span><small>Accesso GitHub richiesto</small></div>
+          <div><span class="pill neutral">Server V5</span><small>Nessun deploy da questa pagina</small></div>
+        </div>
+        <section id="licenses" class="section">
+          <div class="sectionhead"><div><div class="eyebrow">01 / ACCESSI</div><h2>Gestione licenze</h2></div><span class="pill">Richieste protette</span></div>
+          <p class="sectionintro">Prepara una richiesta di emissione, rinnovo o revoca. La firma e la pubblicazione della licenza richiedono ancora approvazione e strumenti amministrativi privati.</p>
+          <div class="card">
+            <div class="cardhead"><div class="mini-icon">▣</div><div><h3>Nuova operazione</h3><p>Crea una richiesta nel repository privato. Nessuna licenza viene generata automaticamente.</p></div></div>
+            <form id="licenseForm">
+              <div class="fields">
+                <label>Operazione<select id="licenseAction" required><option value="Emettere">Emettere nuova licenza</option><option value="Rinnovare">Rinnovare licenza</option><option value="Revocare">Revocare licenza</option></select></label>
+                <label>Riferimento interno<input id="licenseReference" required maxlength="90" placeholder="Es. LRL-LAPTOP-01" autocomplete="off"></label>
+                <label>Durata richiesta<select id="licenseDuration"><option value="30 giorni">30 giorni</option><option value="90 giorni">90 giorni</option><option value="365 giorni">365 giorni</option><option value="Da concordare">Da concordare</option></select></label>
+                <label>Note (facoltative)<input id="licenseNote" maxlength="300" placeholder="Motivazione o istruzioni" autocomplete="off"></label>
+              </div>
+              <div class="formfoot"><span>Aprirà GitHub per la verifica finale prima della creazione del ticket.</span><button type="submit" class="btn primary">Apri richiesta su GitHub ↗</button></div>
+            </form>
+            <p class="disclaimer">Non inserire password, token, chiavi private o dati riservati nei campi.</p>
+          </div>
+          <div class="resource-line">Strumento amministrativo esistente <a href="https://github.com/karoku9/LabRepairLogger/tree/kes/gh-33-portable-candidate-gate/tools/LicenseAdmin" target="_blank" rel="noopener noreferrer">LicenseAdmin nel sorgente privato ↗</a></div>
+        </section>
+        <section id="database" class="section">
+          <div class="sectionhead"><div><div class="eyebrow">02 / ARCHIVIO</div><h2>Cifratura database</h2></div><span class="pill caution">Richiede verifica</span></div>
+          <p class="sectionintro">Questa scelta riguarda <strong>solo il database del server</strong>. Il database locale della Nightly resta SQLCipher. Cambiare configurazione non converte automaticamente un archivio esistente.</p>
+          <div class="choice-grid">
+            <div class="choice"><span class="choice-icon">◇</span><h3>SQLite standard</h3><p>Database server non cifrato. Richiede comunque accesso autenticato e backup.</p><code>sqlCipherEnabled: false</code></div>
+            <div class="choice"><span class="choice-icon">◆</span><h3>SQLCipher</h3><p>Database server cifrato. Richiede una chiave separata e una migrazione verificata.</p><code>sqlCipherEnabled: true</code></div>
+          </div>
+          <div class="callout"><strong>Stato live non disponibile da Pages.</strong> Per modificare il valore desiderato usa il file nella repo privata. Il cambio del database esistente richiede una procedura di migrazione, backup e conferma, non un interruttore live.</div>
+          <div class="actions"><a class="btn primary" href="https://github.com/karoku9/LabRepairLogger/edit/kes/gh-33-portable-candidate-gate/config/server-storage.json" target="_blank" rel="noopener noreferrer">Modifica configurazione su GitHub ↗</a><a class="btn subtle" href="https://github.com/karoku9/LabRepairLogger/blob/kes/gh-33-portable-candidate-gate/config/README.md" target="_blank" rel="noopener noreferrer">Regole di migrazione</a></div>
+        </section>
+        <section id="updates" class="section">
+          <div class="sectionhead"><div><div class="eyebrow">03 / DISTRIBUZIONE</div><h2>Aggiornamenti</h2></div><span class="pill good">Canale pubblico</span></div>
+          <p class="sectionintro">Le release compilate sono pubbliche, mentre il codice rimane privato. Il Client verifica firma digitale e integrità del pacchetto prima dell'attivazione.</p>
+          <div class="release-card"><div><small>ULTIMA NIGHTLY PUBBLICA</small><h3 id="releaseVersion">—</h3><p id="releaseDate">In attesa di GitHub...</p></div><a class="btn subtle" id="releaseLink" href="https://github.com/karoku9/LabRepairLogger-Releases/releases" target="_blank" rel="noopener noreferrer">Vedi release ↗</a></div>
+          <div class="resource-line">Pubblicazione release e aggiornamenti automatici <a href="https://github.com/karoku9/LabRepairLogger-Releases/releases" target="_blank" rel="noopener noreferrer">Repository aggiornamenti ↗</a></div>
+        </section>
+        <footer>LRL Control Center <span>·</span> Portale statico senza accesso a credenziali o database. <span>·</span> Nessuna modifica viene applicata al server da questa pagina.</footer>
+      </div>
+    </main>
+  </div>
+</body>
+</html>
