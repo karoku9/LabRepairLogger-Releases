@@ -1,0 +1,94 @@
+name: Control Center - collaudo
+run-name: "Collaudo LRL: ${{ inputs.operation }}"
+on:
+  workflow_dispatch:
+    inputs:
+      operation:
+        description: Operazione di collaudo
+        required: true
+        type: choice
+        options:
+          - "Aggiorna firma"
+          - "Cifratura ON"
+          - "Cifratura OFF"
+          - "Nuova licenza"
+          - "Rinnova licenza"
+          - "Revoca licenza"
+      license_id:
+        description: "ID esclusivamente DEMO-*"
+        type: string
+        default: DEMO-001
+      duration:
+        description: Durata in giorni
+        type: choice
+        default: "90"
+        options: ["30", "90", "365"]
+permissions:
+  contents: write
+concurrency:
+  group: lrl-signed-preview
+  cancel-in-progress: false
+jobs:
+  preview:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          ref: main
+      - name: Update fictional state and sign
+        env:
+          PREVIEW_KEY: ${{ secrets.LRL_PREVIEW_SIGNING_KEY }}
+          OPERATION: ${{ inputs.operation }}
+          LICENSE_ID: ${{ inputs.license_id }}
+          DURATION: ${{ inputs.duration }}
+        run: |
+          python3 - <<'PY'
+          import os, json, re, datetime, pathlib, tempfile, subprocess, base64
+          p = pathlib.Path("docs/preview/state.json")
+          s = json.loads(p.read_text())
+          assert s["schema"] == 1 and s["environment"] == "TEST_ONLY"
+          op = os.environ["OPERATION"]
+          if op in ("Cifratura ON", "Cifratura OFF"):
+              s["serverDatabase"]["sqlCipherEnabled"] = op == "Cifratura ON"
+          elif op != "Aggiorna firma":
+              ident = os.environ["LICENSE_ID"]
+              assert re.fullmatch(r"DEMO-[A-Za-z0-9_.-]{1,60}", ident)
+              days = int(os.environ["DURATION"])
+              assert days in (30, 90, 365)
+              row = next((x for x in s["licenses"] if x["id"] == ident), None)
+              expiry = (datetime.date.today() + datetime.timedelta(days=days)).isoformat()
+              if op == "Nuova licenza":
+                  assert row is None
+                  s["licenses"].append({"id":ident,"status":"active","expiresAt":expiry,"generation":1})
+              elif op == "Rinnova licenza":
+                  assert row and row["status"] == "active"
+                  row["expiresAt"] = expiry
+                  row["generation"] += 1
+              elif op == "Revoca licenza":
+                  assert row and row["status"] == "active"
+                  row["status"] = "revoked"
+                  row["generation"] += 1
+              else:
+                  raise ValueError("Invalid operation")
+          assert len(s["licenses"]) <= 50
+          s["revision"] += 1
+          s["issuedAtUtc"] = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+          data = json.dumps(s, separators=(",", ":"), ensure_ascii=True).encode()
+          assert len(data) < 16000
+          with tempfile.TemporaryDirectory() as tmp:
+              key = pathlib.Path(tmp) / "key.pem"
+              fd = os.open(key, os.O_CREAT | os.O_EXCL | os.O_WRONLY, 0o600)
+              with os.fdopen(fd,"w") as f:
+                  f.write(os.environ["PREVIEW_KEY"].strip() + "\n")
+              sig = subprocess.run(["openssl","dgst","-sha256","-sign",str(key),"-sigopt","rsa_padding_mode:pss","-sigopt","rsa_pss_saltlen:digest"],input=data,stdout=subprocess.PIPE,check=True).stdout
+          p.write_text(json.dumps(s,indent=2) + "\n")
+          pathlib.Path("docs/preview/signed.json").write_text(json.dumps({"payload":base64.b64encode(data).decode(),"signature":base64.b64encode(sig).decode()},separators=(",",":"))+"\n")
+          print("TEST_ONLY signed state created. No real licenses or database changed.")
+          PY
+          git config user.name "LRL preview workflow"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/preview/state.json docs/preview/signed.json
+          git commit -m "Update signed fictional Control Center state"
+          git push origin HEAD:main
