@@ -7,7 +7,7 @@
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'none'; object-src 'none'; script-src 'self'; style-src 'self'; connect-src https://api.github.com https://raw.githubusercontent.com; form-action 'none'; upgrade-insecure-requests">
 <title>LRL Control Center</title>
 <link rel="stylesheet" href="./control-v2.css">
-<script src="./control-v2.js" defer></script>
+<script src="./control-v3.js" defer></script>
 <script src="./preview-live.js" defer></script>
 </head>
 <body>
@@ -15,18 +15,16 @@
 <main>
 <div class="intro"><h1>Impostazioni LRL</h1><p>Licenze, database e aggiornamenti.</p></div>
 <section aria-labelledby="licenseTitle">
-<div class="heading"><h2 id="licenseTitle">Licenze</h2><button class="primary" id="newLicense">+ Nuova licenza</button></div>
+<div class="heading"><h2 id="licenseTitle">Licenze</h2><a class="button primary" href="https://github.com/karoku9/LabRepairLogger/actions/workflows/lrl-license-prepare.yml" target="_blank" rel="noopener noreferrer">Prepara licenza ↗</a></div>
 <div class="panel">
-<div class="line"><div><strong>Licenza da gestire</strong><small>Seleziona i file JSON locali o inserisci l'ID manualmente.</small></div><label class="file-btn" for="licenseFiles">Apri file licenze</label><input type="file" id="licenseFiles" accept=".json,application/json" multiple class="visually-hidden"></div>
+<p class="muted"><strong>Firma reale non ancora attiva.</strong> Il controllo privato prepara il documento di emissione, rinnovo o revoca. Non concede accesso finché non viene firmato e pubblicato dalle due autorità.</p>
+<div class="line"><div><strong>Licenza da gestire</strong><small>Seleziona un documento JSON locale da consultare.</small></div><label class="file-btn" for="licenseFiles">Apri file licenze</label><input type="file" id="licenseFiles" accept=".json,application/json" multiple class="visually-hidden"></div>
 <label for="licenseSelect" class="field-label">Licenze caricate</label>
 <select id="licenseSelect" disabled><option value="">Nessuna licenza caricata</option></select>
 <div id="licenseDetails" class="detail" hidden></div>
-<label for="licenseId" class="field-label">ID licenza</label>
-<input id="licenseId" maxlength="128" pattern="[A-Za-z0-9_.-]{1,128}" placeholder="Inserisci ID licenza">
-<label for="duration" class="field-label">Durata per emissione / rinnovo</label>
-<select id="duration"><option value="30">30 giorni</option><option value="90">90 giorni</option><option value="365">1 anno</option></select>
-<div class="buttons"><button id="renew" disabled>Rinnova</button><button id="revoke" class="danger" disabled>Revoca</button><a class="button" href="https://github.com/karoku9/LabRepairLogger/issues?q=is%3Aissue+%22LicenseAdmin%22" target="_blank" rel="noopener noreferrer">Richieste ↗</a></div>
-<p class="muted" id="licenseMessage" role="status">I file restano sul PC. I dati visualizzati non sono verificati crittograficamente. Le azioni aprono una richiesta privata GitHub da approvare; non emettono o revocano direttamente.</p>
+
+<div class="buttons"><a class="button" href="https://github.com/karoku9/LabRepairLogger/actions/workflows/lrl-license-prepare.yml" target="_blank" rel="noopener noreferrer">Emissione / rinnovo / revoca ↗</a><a class="button" href="https://github.com/karoku9/LabRepairLogger/tree/kes/gh-33-portable-candidate-gate/tools/LicenseAdmin" target="_blank" rel="noopener noreferrer">Firma amministrativa ↗</a></div>
+<p class="muted" id="licenseMessage" role="status">I file restano sul PC. I dati visualizzati non sono verificati crittograficamente. La preparazione avviene tramite il workflow privato; non emette o revoca direttamente.</p>
 </div></section>
 <section aria-labelledby="dbTitle">
 <div class="heading"><h2 id="dbTitle">Database server</h2><a href="https://github.com/karoku9/LabRepairLogger/blob/kes/gh-33-portable-candidate-gate/config/server-storage.json" target="_blank" rel="noopener noreferrer">Configurazione attuale ↗</a></div>
@@ -48,5 +46,5 @@
 <p class="muted">Scegli Run workflow. La modifica viene salvata e firmata. Nessuna licenza o database reale viene modificato.</p></div></section>
 <footer>Portale pubblico · Le modifiche richiedono accesso al repository privato. Nessun token o chiave memorizzati.</footer>
 </main>
-<dialog id="newDialog"><form id="newForm"><div class="heading"><h2>Nuova licenza</h2><button type="button" id="closeDialog" aria-label="Chiudi">×</button></div><label for="newId" class="field-label">ID desiderato</label><input id="newId" required maxlength="128" pattern="[A-Za-z0-9_.-]{1,128}" placeholder="LRL-CLIENT-01"><label for="newDuration" class="field-label">Durata</label><select id="newDuration"><option value="30">30 giorni</option><option value="90">90 giorni</option><option value="365">1 anno</option></select><p class="muted">Crea una richiesta privata per emissione e autorizzazione dei dispositivi.</p><button type="submit" class="primary">Richiedi licenza ↗</button></form></dialog>
+
 </body></html>
